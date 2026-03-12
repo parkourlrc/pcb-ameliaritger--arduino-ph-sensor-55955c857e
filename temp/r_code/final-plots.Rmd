@@ -689,11 +689,13 @@ ggplot(data=merged_diff, aes(x=date_time)) +
   annotate("text", y=-0.5, x=ymd_hms("2023-04-11 15:25:00"), label="Mean difference = -1.68") +
   annotate("text", y=0.5, x=ymd_hms("2023-04-11 16:35:00"), label="Mean difference = 1.41") +
   annotate("text", y=-0.5, x=ymd_hms("2023-04-11 16:35:00"), label="Mean difference = -1.42") +
-  labs(x="Date and Time", y="Temperature difference (mV)", color = "", linetype="DuraFET") +
+  labs(x="Date and Time", y="Temperature difference (mV)", color = "", linetype="Durafet") +
   scale_x_datetime(breaks = scales::date_breaks("30 min"), 
                    labels = date_format("%d %b %Y %H:%M")) +
   scale_color_manual(values=c("#D55E00", "#0072B2"), 
-                     labels = c("New Design-Old Design", "Old Design-New Design")) +
+                     labels = c(expression(V1 - V0),
+  expression(V0 - V1))) +
+  guides(linetype = guide_legend(order = 1), color = guide_legend(order = 2)) +
   theme_bw() +
   theme(axis.text.x=element_text(angle=20, vjust = 1, hjust=1),
         legend.position = "top",
@@ -701,7 +703,7 @@ ggplot(data=merged_diff, aes(x=date_time)) +
         plot.margin = margin(0,0.4,0.1,0.6, "cm"),
         legend.text = element_text(size=10))
 
-#ggsave(here("temp", "figures", "FINAL(diss)", "tempDiff.png"), height=10, width=15, units="cm")
+#ggsave(here("temp", "figures", "FINAL(diss)", "tempDiff_NEW.png"), height=10, width=15, units="cm")
 
 ggplot(data=merged_diff, aes(x=date_time)) +
   geom_line(data=period1, aes(y=diff_ph, color=logger, linetype=Durafet), size=1) +
@@ -711,11 +713,13 @@ ggplot(data=merged_diff, aes(x=date_time)) +
   annotate("text", y=20, x=ymd_hms("2023-04-11 16:35:00"), label="Mean difference = 32.0") +
   annotate("text", y=-20, x=ymd_hms("2023-04-11 16:35:00"), label="Mean difference = -32.0") +
   labs(x="Date and Time", y="pH difference (mV)", color = "",
-       linetype = "DuraFET") +
+       linetype = "Durafet") +
   scale_x_datetime(breaks = scales::date_breaks("30 min"), 
                    labels = date_format("%d %b %Y %H:%M")) +
   scale_color_manual(values=c("#D55E00", "#0072B2"), 
-                     labels = c("New Design-Old Design", "Old Design-New Design")) +
+                     labels = c(expression(V1 - V0),
+  expression(V0 - V1))) +
+  guides(linetype = guide_legend(order = 1), color = guide_legend(order = 2)) +
   theme_bw() +
   theme(axis.text.x=element_text(angle=20, vjust = 1, hjust=1),
         legend.position = "top",
@@ -723,7 +727,7 @@ ggplot(data=merged_diff, aes(x=date_time)) +
         plot.margin = margin(0,0.4,0.1,0.6, "cm"),
         legend.text = element_text(size=10))
 
-#ggsave(here("temp", "figures", "FINAL(diss)", "phDiff.png"), height=10, width=15, units="cm")
+#ggsave(here("temp", "figures", "FINAL(diss)", "phDiff_NEW.png"), height=10, width=15, units="cm")
 
 avg_t_1 <- (abs(merged_diff_sum[[1,7]]) + abs(merged_diff_sum[[2,7]])) / 2
 avg_t_2 <- (abs(merged_diff_sum[[3,7]]) + abs(merged_diff_sum[[4,7]])) / 2

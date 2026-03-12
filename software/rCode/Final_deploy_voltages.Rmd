@@ -59,19 +59,19 @@ avgP <- (merged_corr_sum[[1,4]] + merged_corr_sum[[2,4]]) / 2
 diffT <- merged_corr_sum[[1,2]] - merged_corr_sum[[2,2]]
 diffP <- merged_corr_sum[[1,4]] - merged_corr_sum[[2,4]]
 
-sd1a <- merged_diff$sdT[1]
-sd1m <- merged_diff$sdT[2]
+sd1a <- merged_diff$sdP[1]
+sd1m <- merged_diff$sdP[2]
 
 ggplot(merged, aes(x=date_time)) +
-  geom_line(aes(y=v4, color=logger),size=1) +
-  geom_ribbon(aes(ymin = v4 - ifelse(logger=="arduino", sd1a, sd1m), ymax = v4 + ifelse(logger=="arduino", sd1a, sd1m), fill=logger), alpha=0.2, show.legend=FALSE) +
+  geom_line(aes(y=v1, color=logger),size=1) +
+  geom_ribbon(aes(ymin = v1 - ifelse(logger=="arduino", sd1a, sd1m), ymax = v1 + ifelse(logger=="arduino", sd1a, sd1m), fill=logger), alpha=0.2, show.legend=FALSE) +
   scale_color_manual(values=c("#D55E00", "#0072B2"), 
-                     labels = c("New Design", "Old Design")) +
+                     labels = c("V1", "V0")) +
   scale_fill_manual(values=c("#D55E00", "#0072B2"), 
-                     labels = c("New Design", "Old Design")) +
+                     labels = c("V1", "V0")) +
   #scale_color_brewer(palette="Set1", direction=-1, labels = c("New Design", "Old Design")) +
   #scale_fill_brewer(palette="Set1", direction=-1, labels = c("New Design", "Old Design")) +
-  labs(x="Date and Time", y="Temperature (mV)", color = "") +
+  labs(x="Date and Time", y="pH (mV)", color = "") +
   scale_x_datetime(breaks = scales::date_breaks("4 hours"), 
                    labels = date_format("%d %b %Y %H:%M")) +
   theme_bw() +
@@ -79,7 +79,7 @@ ggplot(merged, aes(x=date_time)) +
         legend.position = "top", 
         legend.text = element_text(size=10))
 
-#ggsave(here("temp", "figures", "FINAL(diss)", "temp-deploy.png"), height=10, width=15, units="cm")
+ggsave(here("temp", "figures", "FINAL(diss)", "pH-deploy_NEW.png"), height=10, width=15, units="cm")
 ```
 
 
